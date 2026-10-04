@@ -1,17 +1,27 @@
 from fastapi import FastAPI
+from data.tasks import tasks
+from model.taskmodel import TaskModel
+
+# uvicorn main:app --reload
 
 app = FastAPI(title = "Task Manager API",
     description = "A basic task manager",
     version = "1.0.0",)
-
-@app.get("/")
-def root():
-    return {"message": "Hello World"}
 
 
 @app.get("/search_tasks")
 def search_tasks():
     # 1 - Precisa buscar as tasks no codigo, 
     # 2 - Precisa acessar o banco de dados onde possivelmente estao as tasks
-    #  
-    return {"message": "This route is used to search for tasks"}
+    # 3 - 
+
+    return tasks
+
+
+@app.post("/create_tasks")
+def create_tasks(task: TaskModel):
+    # O usuario precisa digitar a task que ele quer adicionar
+    # Apos isso ela vai inserir a task dentro da lista
+    # E por fim retornar a task
+    tasks.append(task)
+    return task
