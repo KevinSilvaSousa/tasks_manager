@@ -25,3 +25,12 @@ def create_tasks(task: TaskModel):
     # E por fim retornar a task
     tasks.append(task)
     return task
+
+
+@app.delete("/delete_tasks/{id}")
+def delete_tasks(id,):
+
+    for task in tasks:
+        if task.id == id:
+            tasks.remove()
+            break
