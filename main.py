@@ -20,7 +20,6 @@ def search_tasks():
 
 @app.post("/create_tasks")
 def create_tasks(task: TaskModel):
-    # O usuario precisa digitar a task que ele quer adicionar
     # Apos isso ela vai inserir a task dentro da lista
     # E por fim retornar a task
     tasks.append(task)
