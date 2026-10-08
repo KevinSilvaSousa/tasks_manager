@@ -6,5 +6,5 @@ class TaskModel(BaseModel):
 
     id: int
     task: str
-    completed: StatusManager
+    status: StatusManager
     creation_date: datetime = Field(default_factory = datetime.now)

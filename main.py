@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from data.tasks import tasks
 from model.taskmodel import TaskModel
+from model.taskupdate import TaskUpdate
 
 # uvicorn main:app --reload
 
@@ -11,10 +12,6 @@ app = FastAPI(title = "Task Manager API",
 
 @app.get("/search_tasks")
 def search_tasks():
-    # 1 - Precisa buscar as tasks no codigo, 
-    # 2 - Precisa acessar o banco de dados onde possivelmente estao as tasks
-    # 3 - 
-
     return tasks
 
 
@@ -27,9 +24,16 @@ def create_tasks(task: TaskModel):
 
 
 @app.delete("/delete_tasks/{id}")
-def delete_tasks(id,):
+def delete_tasks(id):
 
     for task in tasks:
         if task.id == id:
             tasks.remove()
             break
+
+app.patch("/patch_tasks/{id}")
+def patch_tasks(id, task_update: TaskUpdate):
+        for task in tasks:
+            if task.id == id:
+                task_updated = task_update
+                return task_updated
