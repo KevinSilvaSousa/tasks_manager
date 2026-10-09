@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from data.tasks import tasks
 from model.taskmodel import TaskModel
 from model.taskupdate import TaskUpdate
@@ -31,9 +31,20 @@ def delete_tasks(id):
             tasks.remove()
             break
 
-app.patch("/patch_tasks/{id}")
-def patch_tasks(id, task_update: TaskUpdate):
+@app.patch("/patch_tasks/{id}")
+def patch_tasks(id: str, task_update: TaskUpdate):
         for task in tasks:
+
+
             if task.id == id:
-                task_updated = task_update
-                return task_updated
+
+
+                if "task" in task_update.model_fields_set:
+                    task.task = task_update.task
+
+
+                if "status" in task_update.model_fields_set:
+                    task.status = task_update.status
+                return task
+
+            raise HTTPException(status_code=404, detail="Task not found")
