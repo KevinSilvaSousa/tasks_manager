@@ -7,7 +7,16 @@ router = APIRouter()
 
 @router.get("/search_tasks")
 def search_tasks():
-    return tasks
+        return tasks
+
+
+@router.get("/find_task/{id}")
+def find_task(id: int):
+    for task in tasks:
+        if task.id == id:
+            return task
+    else:
+        raise HTTPException(status_code=404, detail="Task not found") 
 
 
 @router.post("/create_tasks")
