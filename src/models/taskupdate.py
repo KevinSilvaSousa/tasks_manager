@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from model.statusmanager import StatusManager
+from src.models.statusmanager import StatusManager
 
 
 class TaskUpdate(BaseModel):

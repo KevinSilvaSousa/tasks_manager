@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
-from model.statusmanager import StatusManager
+from src.models.statusmanager import StatusManager
 
 class TaskModel(BaseModel):
 
