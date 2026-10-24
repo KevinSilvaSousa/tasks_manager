@@ -1,7 +1,18 @@
+# IMPORT FASTAPI
 from fastapi import HTTPException, APIRouter, status
+
+# IMPORT DO BANDO DE DADOS
 from src.data.tasks import tasks
+
+# IMPORT DO MODELO
 from src.models.taskmodel import TaskModel
 from src.models.taskupdate import TaskUpdate
+
+# IMPORT DAS REGRAS DE NEGOCIOS
+
+from src.services.task_service import *
+
+
 
 router = APIRouter()
 
@@ -23,14 +34,11 @@ def find_task(id: int):
 def create_tasks(task: TaskModel):
     # Apos isso ela vai inserir a task dentro da lista
     # E por fim retornar a task
-    if task.id == task.id:
-        raise  HTTPException(status_code=status.HTTP_409_CONFLICT,detail=f"O ID {task.id} já existe.")
-
-    else:
-        tasks.append(task)
-    
-    return task
-
+       if duplicate_id(task.id):
+           raise HTTPException(status_code=409, detail="Task duplicate") 
+       else:
+            tasks.append(task)
+            return task
 
 @router.delete("/delete_tasks/{id}")
 def delete_tasks(id):
