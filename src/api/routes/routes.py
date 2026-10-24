@@ -1,4 +1,4 @@
-from fastapi import HTTPException, APIRouter
+from fastapi import HTTPException, APIRouter, status
 from src.data.tasks import tasks
 from src.models.taskmodel import TaskModel
 from src.models.taskupdate import TaskUpdate
@@ -23,7 +23,12 @@ def find_task(id: int):
 def create_tasks(task: TaskModel):
     # Apos isso ela vai inserir a task dentro da lista
     # E por fim retornar a task
-    tasks.append(task)
+    if task.id == task.id:
+        raise  HTTPException(status_code=status.HTTP_409_CONFLICT,detail=f"O ID {task.id} já existe.")
+
+    else:
+        tasks.append(task)
+    
     return task
 
 
@@ -38,7 +43,7 @@ def delete_tasks(id):
         return {"message": "Task not found"}
 
 @router.patch("/patch_tasks/{id}")
-def patch_tasks(id: str, task_update: TaskUpdate):
+def patch_tasks(id: int, task_update: TaskUpdate):
     for task in tasks:
 
         if task.id == id:
@@ -50,4 +55,4 @@ def patch_tasks(id: str, task_update: TaskUpdate):
                 task.status = task_update.status
             return task
 
-        raise HTTPException(status_code=404, detail="Task not found")
+    raise HTTPException(status_code=404, detail="Task not found")
