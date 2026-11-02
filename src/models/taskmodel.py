@@ -3,7 +3,7 @@ from datetime import datetime
 from src.models.statusmanager import StatusManager
 
 class TaskModel(BaseModel):
-    # MODELO DA TASK 
+    # TASK MODEL OF THE APLICATION 
 
     id: int
     task: str
