@@ -13,7 +13,7 @@ from src.models.message_response_model import MessageResponse
 from src.exceptions.task_duplicated_error import DuplicateTaskError 
 
 
-# IMPORT DAS REGRAS DE NEGOCIOS
+# IMPORT DAS REGRAS DE NEGOCOS
 
 from src.services.task_service import *
 
@@ -41,27 +41,26 @@ def find_task(id: int):
 # TASK CREATE ROUTE 
 @router.post("/create_tasks", response_model=TaskModel)
 def create_tasks(task: TaskModel):
-    # Apos isso ela vai inserir a task dentro da lista
-    # E por fim retornar a task
-    task.id = len(tasks) + 1 
-    if task_id_exists(task.id):
-        raise DuplicateTaskError 
-    
-    tasks.append(task)
-    return task
+    #A rota recebe a tarefa.
+    #Chama criar_task().
+    #O Service executa as regras de negócio.
+    #Se ocorrer duplicidade, lança DuplicateTaskError.
+    #A rota captura a exceção e responde com HTTP 409.
+    #Se tudo funcionar, retorna a tarefa criada.
+    try:
+        return criar_task(task)
+
+    except DuplicateTaskError:
+        raise HTTPException(status_code=409, detail="Task duplicated")
 
 
 # TASK DELETE ROUTE
 @router.delete("/delete_tasks/{id}", response_model=MessageResponse)
-def delete_tasks(id):
+def delete_tasks(id: int):
+    
+    delete_task(id)
 
-    for task in tasks:
-        if task.id == id:
-            tasks.remove(id)
-            break
-    else:
-        return {"message": "Task not found"}
-
+    return MessageResponse(message="Task deleted successfully")
 
 
 # TASK PATCH ROUTE
