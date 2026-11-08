@@ -3,8 +3,6 @@ from fastapi.responses import JSONResponse
 
 from src.exceptions.errors import * 
 
-from src.main import app
-
 
 
 def task_not_found_error(request: Request, exc: TaskNotFoundError):
