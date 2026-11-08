@@ -1,5 +1,5 @@
-from src.exceptions.task_duplicated_error import DuplicateTaskError 
-from src.exceptions.task_exceptions import TaskNotFoundError 
+from src.exceptions.errors import DuplicateTaskError 
+from src.exceptions.errors import TaskNotFoundError 
 from src.data.tasks import tasks
 
 # Modelos de Negocio   
@@ -10,7 +10,7 @@ def check_tasks(id):
         if task.id == id:
             return task
 
-    raise TaskNotFoundError
+    raise TaskNotFoundError(task_id=id)
 
 #FIND
 def task_id_exists(id):

@@ -10,7 +10,7 @@ from src.models.taskupdate import TaskUpdate
 from src.models.message_response_model import MessageResponse   
 
 # IMPORT DE EXCESSOES
-from src.exceptions.task_duplicated_error import DuplicateTaskError 
+from src.exceptions.errors import DuplicateTaskError 
 
 
 # IMPORT DAS REGRAS DE NEGOCOS
