@@ -24,7 +24,7 @@ def task_id_exists(id):
 def criar_task(task):
     task.id = len(tasks) + 1 
     if task_id_exists(task.id):
-       raise DuplicateTaskError
+       raise DuplicateTaskError(task_id=task.id)
     
     tasks.append(task)
     return task
