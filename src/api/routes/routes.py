@@ -2,7 +2,7 @@
 from fastapi import HTTPException, APIRouter, status
 
 # IMPORT DO BANDO DE DADOS
-from src.data.tasks import tasks
+from src.database.tasks import tasks
 
 # IMPORT DO MODELO
 from src.models.taskmodel import TaskModel

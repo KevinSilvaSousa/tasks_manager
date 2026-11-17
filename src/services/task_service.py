@@ -1,6 +1,6 @@
 from src.exceptions.errors import DuplicateTaskError 
 from src.exceptions.errors import TaskNotFoundError 
-from src.data.tasks import tasks
+from src.database.tasks import tasks
 
 # Modelos de Negocio   
 
