@@ -12,16 +12,22 @@ class Database(DeclarativeBase):
 
 
 
+status_value = [f"'{status.value}'" for status in StatusManager]
+status_sql = ", ".join(status_value)
+
+
 class Task(Database):
     __tablename__ = "tasks"
 
     task_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     task: Mapped[str] = mapped_column(String, nullable=False)
-    completed: Mapped[str] = mapped_column(String, default=False, nullable=False)
+    completed: Mapped[str] = mapped_column(String, nullable=False)
+
 
     __table_args__ = (
+
         CheckConstraint(
-            "completed IN ({StatusManager})",
+            f"completed IN ({status_sql})",
             name="ck_tasks_completed_valid_values",
         ),
         CheckConstraint(
